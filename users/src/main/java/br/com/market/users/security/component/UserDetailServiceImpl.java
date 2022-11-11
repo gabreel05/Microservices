@@ -3,6 +3,7 @@ package br.com.market.users.security.component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,14 +29,18 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new AuthenticationUser("admin",
-                "$2a$12$LlxKRPHgE2I41V9o2hcN5ud.4dRUA67QCZhDUbh9C6GevJBoyoPo2",
-                true,
-                true,
-                true,
-                true,
-                new ArrayList<>(),
-                null);
+        try {
+            return new AuthenticationUser("admin",
+                    "$2a$12$Pa84PKadYnzeRa4YJ4wCJOdXEonEbjSI1LLvzUePYyP7lj/J3mGti",
+                    true,
+                    true,
+                    true,
+                    true,
+                    new ArrayList<>(),
+                    null);
+        } catch (Exception e) {
+            throw new BadCredentialsException(username);
+        }
     }
 
     private AuthenticationUser getAuthenticationUser(String username) {

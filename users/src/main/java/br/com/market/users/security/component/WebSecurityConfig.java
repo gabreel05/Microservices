@@ -3,6 +3,7 @@ package br.com.market.users.security.component;
 import br.com.market.users.security.filter.JWTAuthenticationFilter;
 import br.com.market.users.security.filter.JWTLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,12 +19,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/**").permitAll()
+//                .antMatchers("/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/public/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/public/auth/token").permitAll()
                 .anyRequest().authenticated().and()
-                .addFilterBefore(new JWTLoginFilter("/public/auth", authenticationManager()),
+                .addFilterBefore(new JWTLoginFilter("/public/auth/token", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
