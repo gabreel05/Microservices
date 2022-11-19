@@ -1,0 +1,51 @@
+version: '2'
+services:
+  addresses:
+    container_name: addresses
+    build:
+      context: addresses
+      dockerfile: Dockerfile
+    image: addresses
+    ports:
+      - "8082:8082"
+  demands:
+    container_name: demands
+    build:
+      context: demands
+      dockerfile: Dockerfile
+    image: demands
+    ports:
+      - "8084:8084"
+  products:
+    container_name: products
+    build:
+      context: products
+      dockerfile: Dockerfile
+    image: products
+    ports:
+      - "8083:8083"
+  services:
+    container_name: services
+    build:
+      context: services
+      dockerfile: Dockerfile
+    image: services
+    ports:
+      - "8761:8761"
+  users:
+    container_name: users
+    build:
+      context: users
+      dockerfile: Dockerfile
+    image: users
+    ports:
+      - "8081:8081"
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+networks:
+  microservices:
+    driver: bridge

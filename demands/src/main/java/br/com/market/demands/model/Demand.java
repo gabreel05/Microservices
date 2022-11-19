@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "demands")
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Data
 public class Demand {
     @Id
