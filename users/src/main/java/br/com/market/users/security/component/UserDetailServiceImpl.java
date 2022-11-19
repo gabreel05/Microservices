@@ -37,7 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                     true,
                     true,
                     new ArrayList<>(),
-                    null);
+                    1L);
         } catch (Exception e) {
             throw new BadCredentialsException(username);
         }
